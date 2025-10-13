@@ -4,10 +4,15 @@
 ## 1. Copy my code into these files:
    
 - Click on each artifact (code box) I created and copy the content:
+
 📄 recipes/models.py - Copy from the "models.py" artifact
+
 📄 recipes/forms.py - Create new file, copy from "forms.py" artifact
+
 📄 recipes/views.py - Replace content with "views.py" artifact
+
 📄 recipes/urls.py - Create new file, copy from "urls.py" artifact
+
 📄 recipes/admin.py - Replace content with "admin.py" artifact
 
 ## 2. Create the templates folder:
