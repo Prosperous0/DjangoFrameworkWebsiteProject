@@ -685,3 +685,146 @@ pip install djangorestframework django-filter django-cors-headers
 pip install -r requirements.txt
 ```
 ## Step 2: Update Settings
+
+Copy the content from `settings_updates.py` artifact and merge it with your existing `restaurant_web/settings.py`:
+
+- Add `'rest_framework'`, `'django_filters'`, and `'corsheaders'` to `INSTALLED_APPS`
+- Add CORS middleware
+- Add the `REST_FRAMEWORK` configuration block
+
+## Step 3: Replace/Update Files
+
+Replace or create these files in your `recipes/` app:
+
+- models.py - Enhanced models with Recipe, Category, Review, ContactMessage
+- serializers.py - Complete API serializers (NEW FILE)
+- api_views.py - All REST API views (NEW FILE)
+- api_urls.py - API URL routing (NEW FILE)
+- admin.py - Enhanced admin interface
+
+## Step 4: Update Main URLs
+Update `restaurant_web/urls.py` to include the API routes:
+```
+path('api/', include('recipes.api_urls')),
+```
+
+## Step 5: Run Migrations
+```
+python manage.py makemigrations
+python manage.py migrate
+```
+## Step 6: Create Test Data
+
+```
+python manage.py shell
+```
+### Then in the shell:
+```
+from recipes.models import Category, Recipe
+from django.contrib.auth.models import User
+
+# Create categories
+Category.objects.create(name="Italian", slug="italian", description="Italian cuisine")
+Category.objects.create(name="American", slug="american", description="American classics")
+Category.objects.create(name="Desserts", slug="desserts", description="Sweet treats")
+
+# Create a test user
+user = User.objects.create_user('chef', 'chef@example.com', 'password123')
+
+# Create a sample recipe
+italian = Category.objects.get(slug="italian")
+Recipe.objects.create(
+    title="Pasta Carbonara",
+    slug="pasta-carbonara",
+    description="Classic Italian pasta dish",
+    ingredients="400g spaghetti\n200g pancetta\n4 egg yolks\n100g Pecorino Romano\nBlack pepper",
+    instructions="1. Cook pasta\n2. Fry pancetta\n3. Mix eggs and cheese\n4. Combine everything\n5. Season",
+    prep_time=10,
+    cook_time=15,
+    servings=4,
+    difficulty="medium",
+    category=italian,
+    author=user,
+    is_featured=True
+)
+
+exit()
+```
+## Step 7: Start Server
+
+```
+python manage.py runserver
+```
+## Step 8: Test API Endpoints
+### View API Root
+```
+http://127.0.0.1:8000/api/
+```
+### Test Endpoints
+- Get all recipes:
+```
+curl http://127.0.0.1:8000/api/recipes/
+```
+- Get featured recipes:
+
+```
+curl http://127.0.0.1:8000/api/recipes/featured/
+```
+- Get single recipe:
+
+```
+curl http://127.0.0.1:8000/api/recipes/pasta-carbonara/
+```
+Create subscriber:
+```
+curl -X POST http://127.0.0.1:8000/api/subscribers/ \
+  -H "Content-Type: application/json" \
+  -d '{"name": "John Doe", "email": "john@example.com"}'
+```
+
+Search recipes:
+```
+curl "http://127.0.0.1:8000/api/recipes/?search=pasta"
+```
+
+
+Filter by category:
+```
+curl "http://127.0.0.1:8000/api/recipes/?category=1"
+```
+
+Get API statistics:
+```
+curl http://127.0.0.1:8000/api/stats/
+```
+
+### Browsable API
+
+#### Visit these URLs in your browser:
+- http://127.0.0.1:8000/api/recipes/
+- http://127.0.0.1:8000/api/categories/
+- http://127.0.0.1:8000/api/subscribers/
+- http://127.0.0.1:8000/api/reviews/
+- http://127.0.0.1:8000/api/contact/
+(You'll see a nice browsable interface where you can test all endpoints!)
+
+#### Common Issues
+
+- Issue: ModuleNotFoundError: No module named 'rest_framework'
+Solution: Run `pip install djangorestframework`
+- Issue: ModuleNotFoundError: No module named 'django_filters'
+Solution: Run `pip install django-filter`
+- Issue: CSRF verification failed
+Solution: Add CSRF token to your requests or update CSRF_TRUSTED_ORIGINS in settings.py
+- Issue: Email not sending
+Solution:
+1. Check your Gmail app password
+2. Enable 2FA on your Gmail account
+3. use console backend for testing: `EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'`
+
+### Next Steps
+
+- Test all endpoints using Postman or curl
+- Add authentication (JWT tokens) if needed
+- Create frontend integration
+- Deploy to production
