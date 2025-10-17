@@ -161,7 +161,72 @@ INSTALLED_APPS = [
     'recipes',
 ]
 ```
-- Scroll to bottom and paste the REST_FRAMEWORK settings from artifact #6. `settings.py`
+- Scroll to bottom and paste the `REST_FRAMEWORK` settings from artifact #6. `settings.py`
 
+## STEP 4: Update URLs ⏱️ 1 minute
 
+- Open `restaurant_web/urls.py` and add:
+```
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('recipes.urls')),
+    path('api/', include('recipes.api_urls')),  # ADD THIS LINE
+]
 
+```
+
+## STEP 5: Run Migrations ⏱️ 2 minutes
+```
+python manage.py makemigrations
+python manage.py migrate
+```
+- What this does: Creates new database tables
+
+## STEP 6: Create Test Data ⏱️ 3 minutes
+```
+python manage.py shell
+```
+- Then paste:
+```
+from recipes.models import Category
+Category.objects.create(name="Italian", slug="italian", description="Italian food")
+exit()
+```
+## STEP 7: Start Server ⏱️ 1 minute
+```
+python manage.py runserver
+```
+## STEP 8: TEST IT! ⏱️ 2 minutes
+- Open your browser and visit:
+```
+http://127.0.0.1:8000/api/
+```
+### you should see the API page 
+
+- Then try:
+```
+http://127.0.0.1:8000/api/recipes/
+http://127.0.0.1:8000/api/categories/
+http://127.0.0.1:8000/api/subscribers/
+```
+
+# Checklist
+
+- Can you see the browsable API at /api/?
+- Can you see categories at /api/categories/?
+- Can you see recipes at /api/recipes/?
+- Can you create a subscriber using the web form?
+if yes to all ur done
+
+## What we basically made is: 
+
+We created a REST API with:
+
+- 5 database models
+- 8 serializers for data conversion
+- 15+ API endpoints
+- Search, filter, and pagination
+- Automated email sending
+- Full documentation
+- admin interface
+- Working test examples
