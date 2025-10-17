@@ -813,11 +813,11 @@ curl http://127.0.0.1:8000/api/stats/
 - Issue: ModuleNotFoundError: No module named 'rest_framework'
 Solution: Run `pip install djangorestframework`
 - Issue: ModuleNotFoundError: No module named 'django_filters'
-Solution: Run `pip install django-filter`
+| Solution: Run `pip install django-filter`
 - Issue: CSRF verification failed
-Solution: Add CSRF token to your requests or update CSRF_TRUSTED_ORIGINS in settings.py
+| Solution: Add CSRF token to your requests or update CSRF_TRUSTED_ORIGINS in settings.py
 - Issue: Email not sending
-Solution:
+| Solution:
 1. Check your Gmail app password
 2. Enable 2FA on your Gmail account
 3. use console backend for testing: `EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'`
