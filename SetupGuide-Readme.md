@@ -125,15 +125,15 @@ Contains:
 
 #### Think of it as: The book cover and table of contents
 
-# 🎯 SIMPLE START STEPS (Follow This Order!)
+# SIMPLE START STEPS (Follow This Order!)
 
-## STEP 1: Install Dependencies ⏱️ 2 minutes
+## STEP 1: Install Dependencies 
 ```
 pip install djangorestframework django-filter django-cors-headers
 ```
 - What this does: Downloads the tools you need
 
-## STEP 2: Copy Files ⏱️ 5 minutes
+## STEP 2: Copy Files 
 
 In your `recipes/` folder, create/replace these files:
 
@@ -148,7 +148,7 @@ In your `recipes/` folder, create/replace these files:
 Copy the settings updates → Add to your `restaurant_web/settings.py`
 Copy the URL config → Update your `restaurant_web/urls.py`
 
-## STEP 3: Update Settings ⏱️ 3 minutes
+## STEP 3: Update Settings 
 
 Open `restaurant_web/settings.py` and add:
 
@@ -163,7 +163,7 @@ INSTALLED_APPS = [
 ```
 - Scroll to bottom and paste the `REST_FRAMEWORK` settings from artifact #6. `settings.py`
 
-## STEP 4: Update URLs ⏱️ 1 minute
+## STEP 4: Update URLs 
 
 - Open `restaurant_web/urls.py` and add:
 ```
@@ -175,14 +175,14 @@ urlpatterns = [
 
 ```
 
-## STEP 5: Run Migrations ⏱️ 2 minutes
+## STEP 5: Run Migrations 
 ```
 python manage.py makemigrations
 python manage.py migrate
 ```
 - What this does: Creates new database tables
 
-## STEP 6: Create Test Data ⏱️ 3 minutes
+## STEP 6: Create Test Data 
 ```
 python manage.py shell
 ```
@@ -192,11 +192,11 @@ from recipes.models import Category
 Category.objects.create(name="Italian", slug="italian", description="Italian food")
 exit()
 ```
-## STEP 7: Start Server ⏱️ 1 minute
+## STEP 7: Start Server 
 ```
 python manage.py runserver
 ```
-## STEP 8: TEST IT! ⏱️ 2 minutes
+## STEP 8: TEST IT! 
 - Open your browser and visit:
 ```
 http://127.0.0.1:8000/api/
